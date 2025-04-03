@@ -146,6 +146,11 @@ class StudentResource extends Resource
                         return route('student.invoice.generate', $student);
                     }),
 
+                Tables\Actions\Action::make('qrCode')
+                    ->url(function (Student $record) {
+                        return static::getUrl('qrCode', ['record' => $record]);
+                    }),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -166,6 +171,8 @@ class StudentResource extends Resource
     {
         return [
             'index' => Pages\ManageStudents::route('/'),
+
+            'qrCode' => Pages\GenerateQrCode::route('/{record}/qrcode'),
         ];
     }
 }
